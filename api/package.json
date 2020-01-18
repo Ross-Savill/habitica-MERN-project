@@ -1,0 +1,22 @@
+{
+  "name": "habitica-js",
+  "version": "1.0.0",
+  "description": "A practice and bit of fun for and by Ross Savill to set up a link to his Habitica persona and play around with it.",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Ross-Savill/habitica-MERN-project.git"
+  },
+  "author": "Ross Savill",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ross-Savill/habitica-MERN-project/issues"
+  },
+  "homepage": "https://github.com/Ross-Savill/habitica-MERN-project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
