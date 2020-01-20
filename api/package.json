@@ -4,6 +4,7 @@
   "description": "A practice and bit of fun for and by Ross Savill to set up a link to his Habitica persona and play around with it.",
   "main": "api.js",
   "scripts": {
+    "start": "nodemon api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/Ross-Savill/habitica-MERN-project#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1"
   },
   "devDependencies": {
