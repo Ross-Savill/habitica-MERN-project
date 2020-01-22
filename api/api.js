@@ -2,15 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017')
+// mongoose.connect('mongodb://localhost:27017')
+
+const HabInfo = require('./models/habInfo')
 
 const app = new express();
 const port = process.env.PORT || 5000
 
 app.use(cors())
 
-app.get('/api', (req, res) => {
-    return res.send({ message: "hello from api" })
+app.get('/rosshabitica', (req, res) => {
+    HabInfo.find({})
+    .then(docs => res.send(docs))
 })
 
 app.listen(port, () => {
