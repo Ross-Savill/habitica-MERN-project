@@ -4,7 +4,9 @@ class Task extends Component {
 
   render () {
     return (
-        console.log("rendering Task")
+        <div>
+        Rendering Task
+        </div>
     )
 }
 }

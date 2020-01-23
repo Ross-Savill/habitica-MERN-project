@@ -4,12 +4,14 @@ const mongoose = require('mongoose');
 
 // mongoose.connect('mongodb://localhost:27017')
 
-const HabInfo = require('./models/habInfo')
+// const HabInfo = require('./models/habInfo')
 
 const app = new express();
 const port = process.env.PORT || 5000
 
 app.use(cors())
+
+app.get('')
 
 app.get('/rosshabitica', (req, res) => {
     HabInfo.find({})

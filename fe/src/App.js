@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Task from 'task';
+import Task from './Task';
 
 const habiticaMain = axios.create({
   baseURL: 'https://habitica.com/export/userdata.json',
