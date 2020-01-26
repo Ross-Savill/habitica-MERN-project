@@ -18,23 +18,32 @@ const habiticaTasks = axios.create({
 })
 
 class Task extends Component {
+  constructor(props) {
+      super(props)
+          this.state = {}
+          // console.log(props)
+}
 
-     componentDidMount() {
-        habiticaMain.get()
-        .then(resp => console.log(resp.data))
-        .then(json => axios.post)
-        .catch(error => console.log(error))
+  componentDidMount() {
 
-      habiticaTasks.get()
-          .then(resp => console.log(resp.data))
-          .catch(error => console.log(error))
-      }
+    habiticaMain.get()
+      .then(resp => resp.data)
+      .then(resp => this.setState({ mainData: resp }) )
+      .catch(error => console.log(error))
+
+    habiticaTasks.get()
+      .then(resp => resp.data)
+      .then(resp => this.setState({ taskData: resp }) )
+      .catch(error => console.log(error))
+
+  }
 
   render () {
-      const tasks = window.document
-      console.log(tasks)
+      setTimeout(console.log(this.state.taskData.data), 3000)
+      // const { data } = taskData
       return (
         <div>
+
         <button onClick={this.props.updateStats}>Click to update data</button>
         </div>
     )

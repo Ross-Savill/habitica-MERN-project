@@ -11,11 +11,10 @@ const port = process.env.PORT || 5000
 
 app.use(cors())
 
-app.get('')
-
 app.get('/rosshabitica', (req, res) => {
-    HabInfo.find({})
-    .then(docs => res.send(docs))
+    // HabInfo.find({})
+    // .then(docs => res.send(docs))
+    return res.send({ message: "hello from api" })
 })
 
 app.listen(port, () => {
