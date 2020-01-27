@@ -20,8 +20,7 @@ const habiticaTasks = axios.create({
 class Task extends Component {
   constructor(props) {
       super(props)
-          this.state = {}
-          // console.log(props)
+          this.state = { mainData: '', taskData: ''}
 }
 
   componentDidMount() {
@@ -39,15 +38,23 @@ class Task extends Component {
   }
 
   render () {
-      setTimeout(console.log(this.state.taskData.data), 3000)
-      // const { data } = taskData
-      return (
-        <div>
-
-        <button onClick={this.props.updateStats}>Click to update data</button>
-        </div>
-    )
-}
+    const { data, type } = this.state.taskData
+    if(!data) {
+      return ("please wait")
+    } else {
+        return (
+          <div>
+            <ul>
+              {data.map(task =>
+                <li key={task.id}>{task.type}:{task.text}</li>
+              )}
+              {console.log(data)}
+            </ul>
+            <button onClick={this.props.updateStats}>Click to update data</button>
+          </div>
+      )
+    }
+  }
 }
 
 export default Task
