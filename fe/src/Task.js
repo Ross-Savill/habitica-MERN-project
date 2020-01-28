@@ -20,41 +20,55 @@ const habiticaTasks = axios.create({
 class Task extends Component {
   constructor(props) {
       super(props)
-          this.state = { mainData: '', taskData: ''}
-}
+          this.state = { mainData: '', taskData: '', dailies: [], todos: [], habits: []}
+        }
 
   componentDidMount() {
 
     habiticaMain.get()
-      .then(resp => resp.data)
-      .then(resp => this.setState({ mainData: resp }) )
-      .catch(error => console.log(error))
+    .then(resp => this.setState({ mainData: resp }) )
+    .catch(error => console.log(error))
 
     habiticaTasks.get()
-      .then(resp => resp.data)
-      .then(resp => this.setState({ taskData: resp }) )
+      .then(resp => console.log(resp))
+      .then(resp => this.setState({ taskData: resp })
+      // .then(console.log(this.state.taskData)))
       .catch(error => console.log(error))
+    )
+
 
   }
 
   render () {
-    const { data, type } = this.state.taskData
-    if(!data) {
-      return ("please wait")
-    } else {
-        return (
-          <div>
-            <ul>
-              {data.map(task =>
-                <li key={task.id}>{task.type}:{task.text}</li>
-              )}
-              {console.log(data)}
-            </ul>
-            <button onClick={this.props.updateStats}>Click to update data</button>
-          </div>
-      )
-    }
+    // console.log(this.state.taskData.data)
+    const updateStats = () => {
+
+    const data = this.state.taskData
+    data.forEach((task) => {
+      if(task.type === "dailies") {
+        this.setState({ dailies: this.state.dailies.concat(task)})
+      } else if(task.type === "todo") {
+        this.setState({ todos: this.state.todos.concat(task)})
+      } else if (task.type === "habit") {
+        this.setState({ habits: this.state.habits.concat(task)})            }
+    })
+    console.log(data)
   }
-}
+
+  if(this.state.taskData = []) {
+    return <button onClick={updateStats}>Click to update data</button>
+  } else {
+    console.log(this.state)
+    const dailies = this.state.dailies
+      return (
+        <div>
+          <ol>
+            {dailies.map(job =>
+              <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
+            )}
+          </ol>
+        </div>
+    )
+    }}}
 
 export default Task
