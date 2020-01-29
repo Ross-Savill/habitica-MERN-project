@@ -20,45 +20,56 @@ const habiticaTasks = axios.create({
 class Task extends Component {
   constructor(props) {
       super(props)
-          this.state = { mainData: '', taskData: '', dailies: [], todos: [], habits: []}
+          this.state = { mainData: '', taskData: '', dailies: '', todos: '', habits: ''}
         }
 
-  componentDidMount() {
+  async componentDidMount() {
 
-    habiticaMain.get()
-    .then(resp => this.setState({ mainData: resp }) )
-    .catch(error => console.log(error))
-
-    habiticaTasks.get()
-      .then(resp => console.log(resp))
-      .then(resp => this.setState({ taskData: resp })
-      // .then(console.log(this.state.taskData)))
-      .catch(error => console.log(error))
-    )
+    Promise.all([
+      habiticaMain.get(),
+      habiticaTasks.get()
+    ])
+    .then((respMain, respTask) => this.setState({ mainData: respMain,
+      taskData: respTask }, () => console.log(this.state.taskData)))
+    // .then(console.log(this.state.mainData))
 
 
+    // habiticaMain.get()
+    //   .then(resp => this.setState({ mainData: resp }) )
+    //   .then(console.log(this.state.mainData))
+    //   .catch(error => console.log(error))
+
+      // .then(resp => {
+      //   const { data } = this.state.taskData
+      //   console.log(this.state.taskData)
+      //   data.map((task) => {
+      //     if(task.type === "dailies") {
+      //       this.setState({ dailies: [...this.state.dailies, task]})
+      //     } else if(task.type === "todo") {
+      //       this.setState({ todos: [...this.state.todos, task]})
+      //     } else if (task.type === "habit") {
+      //       this.setState({ habits: [...this.state.habits, task]})            }
+      //   })
+      //  })
   }
 
   render () {
-    // console.log(this.state.taskData.data)
     const updateStats = () => {
 
-    const data = this.state.taskData
-    data.forEach((task) => {
-      if(task.type === "dailies") {
-        this.setState({ dailies: this.state.dailies.concat(task)})
-      } else if(task.type === "todo") {
-        this.setState({ todos: this.state.todos.concat(task)})
-      } else if (task.type === "habit") {
-        this.setState({ habits: this.state.habits.concat(task)})            }
-    })
-    console.log(data)
+    // const data = this.state.taskData
+  //   data.forEach((task) => {
+  //     if(task.type === "dailies") {
+  //       this.setState({ dailies: this.state.dailies.concat(task)})
+  //     } else if(task.type === "todo") {
+  //       this.setState({ todos: this.state.todos.concat(task)})
+  //     } else if (task.type === "habit") {
+  //       this.setState({ habits: this.state.habits.concat(task)})            }
+  //   })
   }
 
   if(this.state.taskData = []) {
     return <button onClick={updateStats}>Click to update data</button>
   } else {
-    console.log(this.state)
     const dailies = this.state.dailies
       return (
         <div>
