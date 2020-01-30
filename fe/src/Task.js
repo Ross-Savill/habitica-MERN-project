@@ -20,54 +20,38 @@ const habiticaTasks = axios.create({
 class Task extends Component {
   constructor(props) {
       super(props)
-          this.state = { mainData: '', taskData: '', dailies: '', todos: '', habits: ''}
+          this.state = { habMainData: '',
+          habTaskData: '',
+          dailies: [],
+          todos: [],
+          habits: []}
         }
 
-  async componentDidMount() {
+  componentDidMount() {
 
-    Promise.all([
-      habiticaMain.get(),
-      habiticaTasks.get()
-    ])
-    .then((respMain, respTask) => this.setState({ mainData: respMain,
-      taskData: respTask }, () => console.log(this.state.taskData)))
-    // .then(console.log(this.state.mainData))
-
-
-    // habiticaMain.get()
-    //   .then(resp => this.setState({ mainData: resp }) )
-    //   .then(console.log(this.state.mainData))
-    //   .catch(error => console.log(error))
-
-      // .then(resp => {
-      //   const { data } = this.state.taskData
-      //   console.log(this.state.taskData)
-      //   data.map((task) => {
-      //     if(task.type === "dailies") {
-      //       this.setState({ dailies: [...this.state.dailies, task]})
-      //     } else if(task.type === "todo") {
-      //       this.setState({ todos: [...this.state.todos, task]})
-      //     } else if (task.type === "habit") {
-      //       this.setState({ habits: [...this.state.habits, task]})            }
-      //   })
-      //  })
+    Promise.all([ habiticaMain.get(), habiticaTasks.get() ])
+      .then(responses => this.setState({
+        habMainData: responses[0],
+        habTaskData: responses[1] }))
+      .catch(error => console.log(error))
   }
 
   render () {
     const updateStats = () => {
+      // console.log(this.state.taskData)
 
-    // const data = this.state.taskData
-  //   data.forEach((task) => {
-  //     if(task.type === "dailies") {
-  //       this.setState({ dailies: this.state.dailies.concat(task)})
-  //     } else if(task.type === "todo") {
-  //       this.setState({ todos: this.state.todos.concat(task)})
-  //     } else if (task.type === "habit") {
-  //       this.setState({ habits: this.state.habits.concat(task)})            }
-  //   })
+    const data = this.state.taskData.data
+    data.forEach((task) => {
+      if(task.type === "dailies") {
+        this.setState({ dailies: this.state.dailies.concat(task)})
+      } else if(task.type === "todo") {
+        this.setState({ todos: this.state.todos.concat(task)})
+      } else if (task.type === "habit") {
+        this.setState({ habits: this.state.habits.concat(task)})            }
+    })
   }
 
-  if(this.state.taskData = []) {
+  if(this.state.habTaskData = '') {
     return <button onClick={updateStats}>Click to update data</button>
   } else {
     const dailies = this.state.dailies
