@@ -20,8 +20,9 @@ const habiticaTasks = axios.create({
 class Task extends Component {
   constructor(props) {
       super(props)
-          this.state = { habMainData: '',
-          habTaskData: '',
+          this.state = {
+          habMainData: [],
+          habTaskData: [],
           dailies: [],
           todos: [],
           habits: []}
@@ -29,41 +30,50 @@ class Task extends Component {
 
   componentDidMount() {
 
+    let dailiesArray = []
+    let todosArray = []
+    let habitsArray = []
+
     Promise.all([ habiticaMain.get(), habiticaTasks.get() ])
-      .then(responses => this.setState({
+      .then( responses => this.setState({
         habMainData: responses[0],
-        habTaskData: responses[1] }))
+        habTaskData: responses[1]}, () =>
+        this.state.habTaskData.data.data.map(task => {
+            if(task.type === "daily") {
+              dailiesArray.push(task)
+            } else if(task.type === "todo") {
+              todosArray.push(task)
+            } else if (task.type === "habit") {
+              habitsArray.push(task)
+            }})
+      .then(this.setState({ dailies: dailiesArray,
+                            todos: todosArray,
+                            habits: habitsArray }))
       .catch(error => console.log(error))
-  }
+    }
 
-  render () {
-    const updateStats = () => {
-      // console.log(this.state.taskData)
+    render () {
 
-    const data = this.state.taskData.data
-    data.forEach((task) => {
-      if(task.type === "dailies") {
-        this.setState({ dailies: this.state.dailies.concat(task)})
-      } else if(task.type === "todo") {
-        this.setState({ todos: this.state.todos.concat(task)})
-      } else if (task.type === "habit") {
-        this.setState({ habits: this.state.habits.concat(task)})            }
-    })
-  }
+      if(this.state.habTaskData === '') {
+        return <h1>Please Wait</h1>
+        } else {
 
-  if(this.state.habTaskData = '') {
-    return <button onClick={updateStats}>Click to update data</button>
-  } else {
-    const dailies = this.state.dailies
-      return (
-        <div>
-          <ol>
-            {dailies.map(job =>
-              <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
-            )}
-          </ol>
-        </div>
-    )
-    }}}
+        const { dailies, todos, habits } = this.state
+          return (
+            <div>
+              <ol>
+                {dailies.map(job =>
+                  <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
+                )}
+                {todos.map(job =>
+                  <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
+                )}
+                {habits.map(job =>
+                  <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
+                )}
+              </ol>
+            </div>
+        )
+}}}
 
 export default Task

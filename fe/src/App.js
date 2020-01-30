@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Task updateStats={this.handleUpdate} />
+        <Task />
       </div>
     )
   }
