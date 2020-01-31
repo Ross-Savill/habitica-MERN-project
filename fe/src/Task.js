@@ -37,70 +37,61 @@ class Task extends Component {
       }))
 
       .catch(error => console.log(error))
-    }
 
-    componentDidUpdate(prevProps, prevState) {
+  }
 
-      let dailiesArray = []
-      let todosArray = []
-      let habitsArray = []
+  componentDidUpdate(prevProps, prevState) {
 
-      const setThoseStates = () => {
+    let dailiesArray = []
+    let todosArray = []
+    let habitsArray = []
+
+    const setThoseStates = () => {
       if(prevState.habTaskData !== this.state.habTaskData) {
         this.setState({
           dailies: dailiesArray,
           todos: todosArray,
           habits: habitsArray
-      })}}
-
-
-      const pushIntoArrays = () => {
-        this.state.habTaskData.data.data.map(task => {
-          if(task.type === "daily") {
-            dailiesArray.push(task)
-          } else if(task.type === "todo") {
-            todosArray.push(task)
-          } else if (task.type === "habit") {
-            habitsArray.push(task)
-          }
         })
-        setThoseStates()
       }
-
-      pushIntoArrays()
     }
+
+    const pushIntoArrays = () => {
+      this.state.habTaskData.data.data.map(task => {
+        if(task.type === "daily") {
+          dailiesArray.push(task)
+        } else if(task.type === "todo") {
+          todosArray.push(task)
+        } else if (task.type === "habit") {
+          habitsArray.push(task)
+        }
+      })
+      setThoseStates()
+    }
+    pushIntoArrays()
+  }
 
     render () {
 
-      if(this.state.habTaskData == []) {
+      if(this.state.habTaskData === []) {
         return <h1>Please Wait</h1>
       } else {
-        console.log(this.state.habTaskData)
-        // const { dailies, todos, habits } = this.state
-
-        // //make work below
-        // this.setState({
-        //   dailies: dailiesArray,
-        //   todos: todosArray,
-        //   habits: habitsArray
-        // })
-        // make work above
         const { dailies, todos, habits } = this.state
 
         return (
           <div>
-              <ol>
-                {dailies.map(job =>
-                  <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
-                )}
-                {todos.map(job =>
-                  <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
-                )}
-                {habits.map(job =>
-                  <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
-                )}
-              </ol>
-            </div>
+            <ol>
+              {dailies.map(job =>
+                <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
+              )}
+              {todos.map(job =>
+                <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
+              )}
+              {habits.map(job =>
+                <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
+              )}
+            </ol>
+          </div>
         )
 }}}
 
