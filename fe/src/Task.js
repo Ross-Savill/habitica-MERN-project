@@ -30,37 +30,65 @@ class Task extends Component {
 
   componentDidMount() {
 
-    let dailiesArray = []
-    let todosArray = []
-    let habitsArray = []
-
     Promise.all([ habiticaMain.get(), habiticaTasks.get() ])
-      .then( responses => this.setState({
+      .then(responses => this.setState({
         habMainData: responses[0],
-        habTaskData: responses[1]}, () =>
-        this.state.habTaskData.data.data.map(task => {
-            if(task.type === "daily") {
-              dailiesArray.push(task)
-            } else if(task.type === "todo") {
-              todosArray.push(task)
-            } else if (task.type === "habit") {
-              habitsArray.push(task)
-            }})
-      .then(this.setState({ dailies: dailiesArray,
-                            todos: todosArray,
-                            habits: habitsArray }))
+        habTaskData: responses[1]
+      }))
+
       .catch(error => console.log(error))
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+      let dailiesArray = []
+      let todosArray = []
+      let habitsArray = []
+
+      const setThoseStates = () => {
+      if(prevState.habTaskData !== this.state.habTaskData) {
+        this.setState({
+          dailies: dailiesArray,
+          todos: todosArray,
+          habits: habitsArray
+      })}}
+
+
+      const pushIntoArrays = () => {
+        this.state.habTaskData.data.data.map(task => {
+          if(task.type === "daily") {
+            dailiesArray.push(task)
+          } else if(task.type === "todo") {
+            todosArray.push(task)
+          } else if (task.type === "habit") {
+            habitsArray.push(task)
+          }
+        })
+        setThoseStates()
+      }
+
+      pushIntoArrays()
     }
 
     render () {
 
-      if(this.state.habTaskData === '') {
+      if(this.state.habTaskData == []) {
         return <h1>Please Wait</h1>
-        } else {
+      } else {
+        console.log(this.state.habTaskData)
+        // const { dailies, todos, habits } = this.state
 
+        // //make work below
+        // this.setState({
+        //   dailies: dailiesArray,
+        //   todos: todosArray,
+        //   habits: habitsArray
+        // })
+        // make work above
         const { dailies, todos, habits } = this.state
-          return (
-            <div>
+
+        return (
+          <div>
               <ol>
                 {dailies.map(job =>
                   <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
