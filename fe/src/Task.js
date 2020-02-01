@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './Task.css'
 
 const habiticaMain = axios.create({
   baseURL: 'https://habitica.com/export/userdata.json',
@@ -68,6 +69,7 @@ class Task extends Component {
       })
       setThoseStates()
     }
+
     pushIntoArrays()
   }
 
@@ -79,18 +81,22 @@ class Task extends Component {
         const { dailies, todos, habits } = this.state
 
         return (
-          <div>
-            <ol>
+          <div className="grid-container">
+            <div className="dailies">
               {dailies.map(job =>
                 <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
               )}
+            </div>
+            <div className="todos">
               {todos.map(job =>
                 <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
               )}
+            </div>
+            <div className="habits">
               {habits.map(job =>
                 <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
               )}
-            </ol>
+            </div>
           </div>
         )
 }}}
