@@ -1,3 +1,29 @@
+.header {
+  grid-area: hd;
+  height: 100px;
+  text-align: center;
+}
+
+.dailies {
+  grid-area: dl;
+  padding: 0px 50px 0px 50px;
+}
+
+.todos {
+  grid-area: td;
+  padding: 0px 50px 0px 50px;
+}
+
+.habits {
+  grid-area: hb;
+  padding: 0px 50px 0px 50px;
+}
+
 .grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   font-size: 20px;
+  grid-template-areas:
+      "hd hd hd"
+      "dl td hb";
 }

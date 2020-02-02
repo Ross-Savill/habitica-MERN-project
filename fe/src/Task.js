@@ -82,6 +82,9 @@ class Task extends Component {
 
         return (
           <div className="grid-container">
+            <div className="header">
+              <h1>Ross' Long List of Tasks!</h1>
+            </div>
             <div className="dailies">
               {dailies.map(job =>
                 <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
