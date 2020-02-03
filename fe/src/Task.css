@@ -1,3 +1,7 @@
+.grid-container {
+  background-color: aquamarine;
+}
+
 .header {
   grid-area: hd;
   height: 100px;
@@ -26,4 +30,8 @@
   grid-template-areas:
       "hd hd hd"
       "dl td hb";
+}
+
+.tick {
+  height: 200px;
 }

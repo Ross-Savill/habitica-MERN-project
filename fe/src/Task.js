@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Task.css'
+import tick from'./tick_icon.svg'
+import cross from './cross_icon.svg'
 
 const habiticaMain = axios.create({
   baseURL: 'https://habitica.com/export/userdata.json',
@@ -59,13 +61,14 @@ class Task extends Component {
 
     const pushIntoArrays = () => {
       this.state.habTaskData.data.data.map(task => {
-        if(task.type === "daily") {
-          dailiesArray.push(task)
-        } else if(task.type === "todo") {
-          todosArray.push(task)
-        } else if (task.type === "habit") {
-          habitsArray.push(task)
-        }
+        task.completed ? task.completed = <img alt="completed" src={tick}></img> : task.completed = <img alt="Incomplete" src={cross}></img>
+          if(task.type === "daily") {
+            dailiesArray.push(task)
+          } else if(task.type === "todo") {
+            todosArray.push(task)
+          } else if (task.type === "habit") {
+            habitsArray.push(task)
+          }
       })
       setThoseStates()
     }
@@ -86,19 +89,41 @@ class Task extends Component {
               <h1>Ross' Long List of Tasks!</h1>
             </div>
             <div className="dailies">
-              {dailies.map(job =>
-                <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
-              )}
+              <h2>Daily Tasks</h2>
+              <div>
+                <ol>
+                  {dailies.map(job =>
+                    <div key={job.id} className="dailiesListItem">
+                      <li>{job.text}{job.completed}</li>
+                    </div>
+                  )}
+                </ol>
+              </div>
             </div>
             <div className="todos">
-              {todos.map(job =>
-                <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
-              )}
+              <h2>To-do Tasks</h2>
+                <div>
+                <ol>
+                  {todos.map(job =>
+                    <div key={job.id} className="todosListItem">
+                      <li>{job.text}{job.completed}</li>
+                    </div>
+                  )}
+                </ol>
+              </div>
             </div>
             <div className="habits">
-              {habits.map(job =>
-                <li key={job.id}>{job.type}:{job.text} - Completed? {String(job.completed)}</li>
-              )}
+            <h2>Habits to keep</h2>
+              <div>
+                <ol>
+                {habits.map(job =>
+                  <div key={job.id} className="habitsListItem">
+                    <li>{job.text}</li>
+                    <p>Completed? {String(job.completed)}</p>
+                  </div>
+                )}
+                </ol>
+              </div>
             </div>
           </div>
         )
