@@ -94,7 +94,8 @@ class Task extends Component {
                 <ol>
                   {dailies.map(job =>
                     <div key={job.id} className="dailiesListItem">
-                      <li>{job.text}{job.completed}</li>
+                      <li>{job.text} {job.completed}</li>
+                      <p></p>
                     </div>
                   )}
                 </ol>
@@ -102,11 +103,12 @@ class Task extends Component {
             </div>
             <div className="todos">
               <h2>To-do Tasks</h2>
-                <div>
+              <div>
                 <ol>
                   {todos.map(job =>
                     <div key={job.id} className="todosListItem">
-                      <li>{job.text}{job.completed}</li>
+                      <li>{job.text} {job.completed}</li>
+                      <p></p>
                     </div>
                   )}
                 </ol>
@@ -119,7 +121,6 @@ class Task extends Component {
                 {habits.map(job =>
                   <div key={job.id} className="habitsListItem">
                     <li>{job.text}</li>
-                    <p>Completed? {String(job.completed)}</p>
                   </div>
                 )}
                 </ol>
@@ -127,6 +128,8 @@ class Task extends Component {
             </div>
           </div>
         )
-}}}
+      }
+    }
+}
 
 export default Task
