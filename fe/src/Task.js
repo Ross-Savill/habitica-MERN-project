@@ -38,9 +38,7 @@ class Task extends Component {
         habMainData: responses[0],
         habTaskData: responses[1]
       }))
-
       .catch(error => console.log(error))
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -74,7 +72,29 @@ class Task extends Component {
     }
 
     pushIntoArrays()
+
+    const handleUpdate = (e) => {
+
+      e.preventDefault();
+
+      const { dailiesArray, habitsArray, todosArray } = this.state;
+
+      const arrayData = {
+        dailiesArray,
+        habitsArray,
+        todosArray,
+      };
+
+      axios
+      .post('http://localhost:3001/update', arrayData)
+      .then(() => console.log('Database Updated'))
+      .catch(err => {
+        console.error(err);
+      });
+    }
+
   }
+
 
     render () {
 
@@ -87,6 +107,7 @@ class Task extends Component {
           <div className="grid-container">
             <div className="header">
               <h1>Ross' Long List of Tasks!</h1>
+              <button onClick={this.handleUpdate}>Update Database</button>
             </div>
             <div className="dailies">
               <h2>Daily Tasks</h2>
@@ -96,6 +117,7 @@ class Task extends Component {
                     <div key={job.id} className="dailiesListItem">
                       <li>{job.text} {job.completed}</li>
                       <p></p>
+                      {console.log(job)}
                     </div>
                   )}
                 </ol>
