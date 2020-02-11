@@ -9,13 +9,26 @@ const mongoose = require('mongoose');
 const app = new express();
 const port = process.env.PORT || 5000
 
-app.use(cors())
+app.use(cors({origin: 'http://localhost:3000'}))
 
-app.get('/rosshabitica', (req, res) => {
+app.get('/', (req, res) => {
     // HabInfo.find({})
     // .then(docs => res.send(docs))
     return res.send({ message: "hello from api" })
 })
+
+let data = []
+
+app.post('/create', function(req, res) {
+  const newData = {
+    dailiesArray: req.body.dailiesArray,
+    habitsArray: req.body.habitsArray,
+    todosArray: req.body.todosArray,
+  };
+
+  data.push(newData);
+  console.log(data);
+});
 
 app.listen(port, () => {
     console.log(`listening at http://localhost:${port}`)

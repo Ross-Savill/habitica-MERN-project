@@ -31,6 +31,26 @@ class Task extends Component {
           habits: []}
         }
 
+        handleUpdate = (e) => {
+
+          e.preventDefault();
+
+          const { dailiesArray, habitsArray, todosArray } = this.state;
+          console.log(dailiesArray)
+          const arrayData = {
+            dailiesArray,
+            habitsArray,
+            todosArray,
+          };
+
+          axios
+          .post('http://localhost:3000/update', arrayData)
+          .then(() => console.log('Database Updated'))
+          .catch(err => {
+            console.error(err);
+          });
+        }
+
   componentDidMount() {
 
     Promise.all([ habiticaMain.get(), habiticaTasks.get() ])
@@ -72,26 +92,6 @@ class Task extends Component {
     }
 
     pushIntoArrays()
-
-    const handleUpdate = (e) => {
-
-      e.preventDefault();
-
-      const { dailiesArray, habitsArray, todosArray } = this.state;
-
-      const arrayData = {
-        dailiesArray,
-        habitsArray,
-        todosArray,
-      };
-
-      axios
-      .post('http://localhost:3001/update', arrayData)
-      .then(() => console.log('Database Updated'))
-      .catch(err => {
-        console.error(err);
-      });
-    }
 
   }
 
