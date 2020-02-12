@@ -2,18 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://localhost:27017')
+mongoose.connect('mongodb://localhost:27017')
 
-// const HabInfo = require('./models/habInfo')
+const HabInfo = require('./models/habInfo')
 
 const app = new express();
 const port = process.env.PORT || 5000
 
 app.use(cors({origin: 'http://localhost:3000'}))
+app.use(express.json())
 
 app.get('/', (req, res) => {
-    // HabInfo.find({})
-    // .then(docs => res.send(docs))
     return res.send({ message: "hello from api" })
 })
 
@@ -21,13 +20,13 @@ let data = []
 
 app.post('/create', function(req, res) {
   const newData = {
-    dailiesArray: req.body.dailiesArray,
-    habitsArray: req.body.habitsArray,
-    todosArray: req.body.todosArray,
+    dailies: req.body.dailies,
+    habits: req.body.habits,
+    todos: req.body.todos,
   };
-
   data.push(newData);
-  console.log(data);
+  HabInfo.find({})
+  .then(res.send(data))
 });
 
 app.listen(port, () => {

@@ -34,17 +34,16 @@ class Task extends Component {
         handleUpdate = (e) => {
 
           e.preventDefault();
-
-          const { dailiesArray, habitsArray, todosArray } = this.state;
-          console.log(dailiesArray)
+          const { dailies, habits, todos } = this.state;
+          console.log(dailies)
           const arrayData = {
-            dailiesArray,
-            habitsArray,
-            todosArray,
+            dailies,
+            habits,
+            todos
           };
 
           axios
-          .post('http://localhost:3000/update', arrayData)
+          .post('http://localhost:5000/create', arrayData)
           .then(() => console.log('Database Updated'))
           .catch(err => {
             console.error(err);
@@ -90,9 +89,7 @@ class Task extends Component {
       })
       setThoseStates()
     }
-
     pushIntoArrays()
-
   }
 
 
@@ -107,17 +104,16 @@ class Task extends Component {
           <div className="grid-container">
             <div className="header">
               <h1>Ross' Long List of Tasks!</h1>
-              <button onClick={this.handleUpdate}>Update Database</button>
             </div>
             <div className="dailies">
               <h2>Daily Tasks</h2>
+              <button type="submit" onClick={this.handleUpdate}>Update Database</button>
               <div>
                 <ol>
                   {dailies.map(job =>
                     <div key={job.id} className="dailiesListItem">
                       <li>{job.text} {job.completed}</li>
                       <p></p>
-                      {console.log(job)}
                     </div>
                   )}
                 </ol>
