@@ -20,12 +20,15 @@ app.post('/create', function(req, res) {
   const newData = {
     dailies: req.body.dailies,
     habits: req.body.habits,
-    todos: req.body.todos,
+    todos: req.body.todos
   };
+  console.log(newData)
+  let dataKeep = new HabInfo({ newData });
 
-  let data = newData;
-  HabInfo.find({})
-  .then(res.send(data))
+  dataKeep.save(function (err, data) {
+    if (err) return console.error(err);
+  })
+
 });
 
 app.listen(port, () => {
