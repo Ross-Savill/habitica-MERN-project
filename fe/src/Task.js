@@ -92,7 +92,6 @@ class Task extends Component {
     pushIntoArrays()
   }
 
-
     render () {
 
       if(this.state.habTaskData === []) {

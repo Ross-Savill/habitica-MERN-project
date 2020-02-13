@@ -16,15 +16,14 @@ app.get('/', (req, res) => {
     return res.send({ message: "hello from api" })
 })
 
-let data = []
-
 app.post('/create', function(req, res) {
   const newData = {
     dailies: req.body.dailies,
     habits: req.body.habits,
     todos: req.body.todos,
   };
-  data.push(newData);
+
+  let data = newData;
   HabInfo.find({})
   .then(res.send(data))
 });
