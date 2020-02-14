@@ -22,33 +22,47 @@ const habiticaTasks = axios.create({
 
 class Task extends Component {
   constructor(props) {
-      super(props)
-          this.state = {
-          habMainData: [],
-          habTaskData: [],
-          dailies: [],
-          todos: [],
-          habits: []}
-        }
+    super(props)
+      this.state = {
+      habMainData: [],
+      habTaskData: [],
+      dailies: [],
+      todos: [],
+      habits: []}
+    }
 
-        handleUpdate = (e) => {
+      handleUpdate = (e) => {
 
-          e.preventDefault();
-          const { dailies, habits, todos } = this.state;
-          console.log(dailies)
-          const arrayData = {
-            dailies,
-            habits,
-            todos
+        e.preventDefault();
+        const { dailies, habits, todos } = this.state;
+        const arrayData = {
+          dailies,
+          habits,
+          todos
+        };
+
+        const getCircularReplacer = () => {
+          const seen = new WeakSet();
+          return (key, value) => {
+            if (typeof value === "object" && value !== null) {
+              if (seen.has(value)) {
+                return;
+              }
+              seen.add(value);
+            }
+            return value;
           };
+        };
 
-          axios
-          .post('http://localhost:5000/create', arrayData)
-          .then(() => console.log('Database Updated'))
-          .catch(err => {
-            console.error(err);
-          });
-        }
+        let newArrayData = JSON.stringify(arrayData, getCircularReplacer());
+        console.log(arrayData)
+        axios
+        .post('http://localhost:5000/create', newArrayData)
+        .then(() => console.log('Database Updated'))
+        .catch(err => {
+          console.error(err);
+        });
+      }
 
   componentDidMount() {
 
@@ -66,6 +80,20 @@ class Task extends Component {
     let todosArray = []
     let habitsArray = []
 
+    const pushIntoArrays = () => {
+      this.state.habTaskData.data.data.map(task => {
+        let { id, value, text, counterup, counterdown, completed} = task
+          if(task.type === "daily") {
+            dailiesArray.push({ id, value, text, completed })
+          } else if(task.type === "todo") {
+            todosArray.push({ id, value, text, completed })
+          } else if (task.type === "habit") {
+            habitsArray.push({ id, counterup, counterdown, text })
+          }
+      })
+      setThoseStates()
+    }
+
     const setThoseStates = () => {
       if(prevState.habTaskData !== this.state.habTaskData) {
         this.setState({
@@ -74,20 +102,6 @@ class Task extends Component {
           habits: habitsArray
         })
       }
-    }
-
-    const pushIntoArrays = () => {
-      this.state.habTaskData.data.data.map(task => {
-        task.completed ? task.completed = <img alt="completed" src={tick}></img> : task.completed = <img alt="Incomplete" src={cross}></img>
-          if(task.type === "daily") {
-            dailiesArray.push(task)
-          } else if(task.type === "todo") {
-            todosArray.push(task)
-          } else if (task.type === "habit") {
-            habitsArray.push(task)
-          }
-      })
-      setThoseStates()
     }
     pushIntoArrays()
   }
@@ -111,7 +125,7 @@ class Task extends Component {
                 <ol>
                   {dailies.map(job =>
                     <div key={job.id} className="dailiesListItem">
-                      <li>{job.text} {job.completed}</li>
+                      <li>{job.text} > {job.completed ? job.completed = <img alt="completed" src={tick}></img> : job.completed = <img alt="Incomplete" src={cross}></img>}</li>
                       <p></p>
                     </div>
                   )}
@@ -124,7 +138,7 @@ class Task extends Component {
                 <ol>
                   {todos.map(job =>
                     <div key={job.id} className="todosListItem">
-                      <li>{job.text} {job.completed}</li>
+                      <li>{job.text} > {job.completed ? job.completed = <img alt="completed" src={tick}></img> : job.completed = <img alt="Incomplete" src={cross}></img>}</li>
                       <p></p>
                     </div>
                   )}
