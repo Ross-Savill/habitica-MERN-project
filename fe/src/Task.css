@@ -11,16 +11,22 @@
 .dailies {
   grid-area: dl;
   padding: 0px 50px 0px 50px;
+  border: 1px solid #000;
+  text-align: center;
 }
 
 .todos {
   grid-area: td;
   padding: 0px 50px 0px 50px;
+  border: 1px solid #000;
+  text-align: center;
 }
 
 .habits {
   grid-area: hb;
   padding: 0px 50px 0px 50px;
+  border: 1px solid #000;
+  text-align: center;
 }
 
 .grid-container {
@@ -30,10 +36,20 @@
   grid-template-areas:
       "hd hd hd"
       "dl td hb";
-  border-color: black;
-  border-width: 10px;
 }
 
 .tick {
   height: 200px;
+}
+
+.dailiesListItem {
+  border: 1px solid #000
+}
+
+.habitsListItem {
+  border: 1px solid #000
+}
+
+.todosListItem {
+  border: 1px solid #000
 }
