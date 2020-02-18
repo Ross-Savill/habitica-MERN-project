@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017')
+mongoose.connect('mongodb://localhost:27017', {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  })
 
 const HabInfo = require('./models/habInfo')
 
@@ -22,7 +25,6 @@ app.post('/create', function(req, res) {
     habits: req.body.habits,
     todos: req.body.todos
   };
-  console.log(newData)
   let dataKeep = new HabInfo({ newData });
 
   dataKeep.save(function (err, data) {

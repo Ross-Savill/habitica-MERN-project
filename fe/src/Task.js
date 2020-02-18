@@ -55,10 +55,10 @@ class Task extends Component {
         };
 
         let newArrayData = JSON.stringify(arrayData, getCircularReplacer());
-        console.log(arrayData)
+        console.log(newArrayData)
         axios
         .post('http://localhost:5000/create', newArrayData)
-        .then(() => console.log('Database Updated'))
+        .then(console.log('Database Updated'))
         .catch(err => {
           console.error(err);
         });
@@ -82,7 +82,7 @@ class Task extends Component {
 
     const pushIntoArrays = () => {
       this.state.habTaskData.data.data.map(task => {
-        let { id, value, text, counterup, counterdown, completed} = task
+        let { id, value, text, counterup, counterdown, completed } = task
           if(task.type === "daily") {
             dailiesArray.push({ id, value, text, completed })
           } else if(task.type === "todo") {
@@ -125,7 +125,7 @@ class Task extends Component {
                 <ol>
                   {dailies.map(job =>
                     <div key={job.id} className="dailiesListItem">
-                      <li>{job.text} > {job.completed ? job.completed = <img alt="completed" src={tick}></img> : job.completed = <img alt="Incomplete" src={cross}></img>}</li>
+                      <li>{job.text} > {job.completed ? <img alt="completed" src={tick}></img> : <img alt="Incomplete" src={cross}></img>}</li>
                       <p></p>
                     </div>
                   )}
@@ -138,7 +138,7 @@ class Task extends Component {
                 <ol>
                   {todos.map(job =>
                     <div key={job.id} className="todosListItem">
-                      <li>{job.text} > {job.completed ? job.completed = <img alt="completed" src={tick}></img> : job.completed = <img alt="Incomplete" src={cross}></img>}</li>
+                      <li>{job.text} > {job.completed ? <img alt="completed" src={tick}></img> : <img alt="Incomplete" src={cross}></img>}</li>
                       <p></p>
                     </div>
                   )}
