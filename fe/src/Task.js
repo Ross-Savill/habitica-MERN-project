@@ -28,8 +28,9 @@ class Task extends Component {
       habTaskData: [],
       dailies: [],
       todos: [],
-      habits: []}
+      habits: []
     }
+  }
 
       handleUpdate = (e) => {
 

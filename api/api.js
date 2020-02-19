@@ -14,7 +14,8 @@ const app = new express();
 const port = process.env.PORT || 5000
 
 app.use(cors({origin: 'http://localhost:3000'}))
-app.use(express.json())
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -22,7 +23,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/create', function(req, res) {
-  return console.log(req)
   const newData = {
     dailies: req.body.dailies,
     habits: req.body.habits,
@@ -31,6 +31,7 @@ app.post('/create', function(req, res) {
   let dataKeep = new HabInfo({ newData });
   dataKeep.save(function (err, data) {
     if (err) return console.error(err);
+    console.log(JSON.stringify(req.body, undefined, '\t'))
   })
 
 });
@@ -38,3 +39,8 @@ app.post('/create', function(req, res) {
 app.listen(port, () => {
     console.log(`listening at http://localhost:${port}`)
 })
+
+// lsof -i :27017 OR sudo lsof -iTCP -sTCP:LISTEN -n -P
+// kill -9 17381 OR sudo kill <mongo_command_pid>
+// "lsof -i :27017"
+// sudo mongod --dbpath /System/Volumes/Data/data/db
