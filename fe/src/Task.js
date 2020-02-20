@@ -42,23 +42,9 @@ class Task extends Component {
           todos
         };
 
-        const getCircularReplacer = () => {
-          const seen = new WeakSet();
-          return (key, value) => {
-            if (typeof value === "object" && value !== null) {
-              if (seen.has(value)) {
-                return;
-              }
-              seen.add(value);
-            }
-            return value;
-          };
-        };
-
-        let newArrayData = JSON.stringify(arrayData, getCircularReplacer());
-        console.log(newArrayData)
+        // console.log(arrayData)
         axios
-        .post('http://localhost:5000/create', newArrayData)
+        .post('http://localhost:5000/create', arrayData)
         .then(console.log('Database Updated'))
         .catch(err => {
           console.error(err);

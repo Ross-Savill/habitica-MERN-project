@@ -23,7 +23,9 @@ app.get('/', (req, res) => {
 })
 
 app.post('/create', function(req, res) {
+  console.log(req.body)
   const newData = {
+    // allData: req.body
     dailies: req.body.dailies,
     habits: req.body.habits,
     todos: req.body.todos
