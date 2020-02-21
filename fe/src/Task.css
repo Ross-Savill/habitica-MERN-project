@@ -43,13 +43,13 @@
 }
 
 .dailiesListItem {
-  border: 1px solid #000
+  border: 1px solid #000;;
 }
 
 .habitsListItem {
-  border: 1px solid #000
+  border: 1px solid #000;
 }
 
 .todosListItem {
-  border: 1px solid #000
+  border: 1px solid #000;
 }

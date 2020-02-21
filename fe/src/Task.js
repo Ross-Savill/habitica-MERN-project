@@ -35,6 +35,7 @@ class Task extends Component {
       handleUpdate = (e) => {
 
         e.preventDefault();
+        console.log(this.state.habTaskData)
         const { dailies, habits, todos } = this.state;
         const arrayData = {
           dailies,
