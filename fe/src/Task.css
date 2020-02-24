@@ -10,21 +10,21 @@
 
 .dailies {
   grid-area: dl;
-  padding: 0px 50px 0px 50px;
+  /* padding: 0px 50px 0px 50px; */
   border: 1px solid #000;
   text-align: center;
 }
 
 .todos {
   grid-area: td;
-  padding: 0px 50px 0px 50px;
+  /* padding: 0px 50px 0px 50px; */
   border: 1px solid #000;
   text-align: center;
 }
 
 .habits {
   grid-area: hb;
-  padding: 0px 50px 0px 50px;
+  /* padding: 0px 50px 0px 50px; */
   border: 1px solid #000;
   text-align: center;
 }
@@ -40,10 +40,12 @@
 
 .tick {
   height: 200px;
+  vertical-align: middle;
 }
 
 .dailiesListItem {
-  border: 1px solid #000;;
+  border: 1px solid #000;
+  vertical-align: middle;
 }
 
 .habitsListItem {
